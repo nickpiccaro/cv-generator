@@ -1,4 +1,4 @@
-const owner = "npiccaro";
+const owner = "nickpiccaro";
 const repo = "cv-generator";
 const latestReleaseUrl = `https://github.com/${owner}/${repo}/releases/latest`;
 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;

@@ -8,7 +8,7 @@ const defaultFileName = "cv-data.json";
 const updatePreferencesFileName = "update-preferences.json";
 const updateCheckIntervalMs = 12 * 60 * 60 * 1000;
 const updateIgnoreMs = 30 * 24 * 60 * 60 * 1000;
-const fallbackRepository = { owner: "npiccaro", repo: "cv-generator" };
+const fallbackRepository = { owner: "nickpiccaro", repo: "cv-generator" };
 
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;

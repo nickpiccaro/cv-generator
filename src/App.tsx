@@ -41,8 +41,8 @@ const fallbackApi: NonNullable<Window["cvApi"]> = {
     buildInfo: { version: "browser", gitCommit: "browser", builtAt: "browser" },
     dataPath: "Browser memory",
     defaultJsonPath: "Browser memory",
-    repository: { owner: "npiccaro", repo: "cv-generator" },
-    releaseUrl: "https://github.com/npiccaro/cv-generator/releases/latest",
+    repository: { owner: "nickpiccaro", repo: "cv-generator" },
+    releaseUrl: "https://github.com/nickpiccaro/cv-generator/releases/latest",
     isPackaged: false
   }),
   checkForUpdates: async () => ({ ok: true, message: "Update checks are available in the desktop app." }),

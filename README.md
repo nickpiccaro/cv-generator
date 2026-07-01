@@ -6,11 +6,11 @@ A private desktop CV generator for academic medicine. The app stores CV data as 
 
 The product website is designed for GitHub Pages:
 
-https://npiccaro.github.io/cv-generator/
+https://nickpiccaro.github.io/cv-generator/
 
 Installers are published through GitHub Releases:
 
-https://github.com/npiccaro/cv-generator/releases/latest
+https://github.com/nickpiccaro/cv-generator/releases/latest
 
 Release builds produce:
 

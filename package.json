@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "A local, JSON-backed academic medicine CV generator with LaTeX export.",
   "author": "Nicholas Piccaro",
-  "homepage": "https://npiccaro.github.io/cv-generator/",
+  "homepage": "https://nickpiccaro.github.io/cv-generator/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/npiccaro/cv-generator.git"
+    "url": "https://github.com/nickpiccaro/cv-generator.git"
   },
   "main": "electron/main.cjs",
   "private": true,
@@ -35,7 +35,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "npiccaro",
+        "owner": "nickpiccaro",
         "repo": "cv-generator",
         "releaseType": "release"
       }
