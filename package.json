@@ -1,6 +1,6 @@
 {
   "name": "cv-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A local, JSON-backed academic medicine CV generator with LaTeX export.",
   "author": "Nicholas Piccaro",
   "homepage": "https://nickpiccaro.github.io/cv-generator/",
