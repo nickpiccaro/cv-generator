@@ -5,7 +5,14 @@ on:
     branches:
       - main
     paths:
+      - "index.html"
+      - "package.json"
+      - "package-lock.json"
+      - "src/**"
       - "docs/**"
+      - "public/**"
+      - "tsconfig.json"
+      - "vite.config.ts"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -27,6 +34,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

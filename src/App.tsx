@@ -6,52 +6,41 @@ import {
   Download,
   Eye,
   FileJson,
+  FilePlus,
   FileText,
+  FileUp,
   FolderOpen,
   LayoutList,
   PanelLeftClose,
   PanelLeftOpen,
   Plus,
-  RefreshCw,
+  Printer,
   Save,
   Settings,
-  ShieldCheck,
+  Sparkles,
   Trash2
 } from "lucide-react";
-import sampleData from "./data/sample-cv.json";
 import { createProfileLink, listValue, normalizeDocument, profileLinks } from "./lib/document";
+import { createBlankDocument, createSampleDocument } from "./lib/starter-documents";
 import { createField, createItem, createSection, fieldKinds, sectionTemplates } from "./lib/templates";
 import { generateLatex, visibleSections } from "./lib/latex";
-import type { AppInfo, CVDocument, FieldDef, FieldKind, ProfileLink, SectionDef, SectionItem } from "./lib/types";
+import type { CVDocument, FieldDef, FieldKind, ProfileLink, SectionDef, SectionItem } from "./lib/types";
 
 type Tab = "content" | "sections" | "preview";
 type ContentView = "profile" | "section";
-
-const fallbackApi: NonNullable<Window["cvApi"]> = {
-  load: async () => ({ data: normalizeDocument(sampleData as CVDocument), filePath: undefined }),
-  openJson: async () => ({ canceled: true }),
-  saveJson: async () => ({ filePath: "browser-memory.json" }),
-  saveJsonAs: async () => ({ canceled: true }),
-  exportTex: async () => ({ canceled: true }),
-  exportPdf: async () => ({ canceled: true }),
-  revealFile: async () => true,
-  openDataFolder: async () => true,
-  getAppInfo: async () => ({
-    version: "browser",
-    buildInfo: { version: "browser", gitCommit: "browser", builtAt: "browser" },
-    dataPath: "Browser memory",
-    defaultJsonPath: "Browser memory",
-    repository: { owner: "nickpiccaro", repo: "cv-generator" },
-    releaseUrl: "https://github.com/nickpiccaro/cv-generator/releases/latest",
-    isPackaged: false
-  }),
-  checkForUpdates: async () => ({ ok: true, message: "Update checks are available in the desktop app." }),
-  onUpdateStatus: () => () => undefined
+type FileHandle = {
+  name: string;
+  getFile: () => Promise<File>;
+  createWritable?: () => Promise<{
+    write: (data: BlobPart) => Promise<void>;
+    close: () => Promise<void>;
+  }>;
 };
-
-function api() {
-  return window.cvApi ?? fallbackApi;
-}
+type BrowserFileWindow = Window & {
+  showOpenFilePicker?: (options?: unknown) => Promise<FileHandle[]>;
+  showSaveFilePicker?: (options?: unknown) => Promise<FileHandle>;
+};
+type StartMode = "blank" | "template";
 
 function reorder<T>(items: T[], from: number, to: number) {
   const copy = [...items];
@@ -89,6 +78,38 @@ function sortYearDesc(items: SectionItem[]) {
   return [...items].sort((a, b) => year(b) - year(a));
 }
 
+function downloadText(filename: string, content: string, type: string) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function defaultFileName(doc: CVDocument, extension: "json" | "tex") {
+  const base = (doc.profile.name || "academic-cv")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "") || "academic-cv";
+  return `${base}.${extension}`;
+}
+
+async function writeHandle(handle: FileHandle, content: string) {
+  if (!handle.createWritable) return false;
+  const writable = await handle.createWritable();
+  await writable.write(content);
+  await writable.close();
+  return true;
+}
+
+function jsonText(doc: CVDocument) {
+  return `${JSON.stringify(doc, null, 2)}\n`;
+}
+
 function sectionText(section: SectionDef) {
   return `${section.id} ${section.title}`.toLowerCase();
 }
@@ -111,32 +132,16 @@ function presentationType(section: SectionDef, item: SectionItem) {
 }
 
 export default function App() {
-  const [doc, setDoc] = useState<CVDocument>(normalizeDocument(sampleData as CVDocument));
-  const [filePath, setFilePath] = useState<string | undefined>();
+  const [doc, setDoc] = useState<CVDocument>(() => createSampleDocument());
+  const [fileName, setFileName] = useState<string | undefined>();
+  const [fileHandle, setFileHandle] = useState<FileHandle | undefined>();
   const [selectedSectionId, setSelectedSectionId] = useState("education");
   const [contentView, setContentView] = useState<ContentView>("section");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [tab, setTab] = useState<Tab>("content");
-  const [status, setStatus] = useState("Loading local CV file...");
-  const [appInfo, setAppInfo] = useState<AppInfo | undefined>();
-
-  useEffect(() => {
-    api().load().then((result) => {
-      if (result.data) {
-        const normalized = normalizeDocument(result.data);
-        setDoc(normalized);
-        setSelectedSectionId(normalized.settings.sectionOrder[0] ?? normalized.sections[0]?.id ?? "");
-      }
-      setFilePath(result.filePath);
-      setStatus(result.filePath ? `Loaded ${result.filePath}` : "Loaded sample CV");
-    }).catch((error) => setStatus(`Load failed: ${error.message}`));
-
-    api().getAppInfo().then(setAppInfo).catch(() => undefined);
-    const removeUpdateListener = api().onUpdateStatus((result) => {
-      if (result.message && !result.skipped) setStatus(result.message);
-    });
-    return removeUpdateListener;
-  }, []);
+  const [status, setStatus] = useState("Choose how to start, then save your JSON locally when you are done.");
+  const [startupOpen, setStartupOpen] = useState(true);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const latex = useMemo(() => generateLatex(doc), [doc]);
   const orderedSections = useMemo(() => {
@@ -196,62 +201,136 @@ export default function App() {
     setTab("content");
   }
 
-  async function openJson() {
-    const result = await api().openJson();
-    if (result.canceled) return;
-    if (result.data) {
-      const normalized = normalizeDocument(result.data);
-      setDoc(normalized);
-      setFilePath(result.filePath);
-      setSelectedSectionId(normalized.settings.sectionOrder[0] ?? normalized.sections[0]?.id ?? "");
-      setStatus(`Opened ${result.filePath}`);
+  function loadDocument(nextDoc: CVDocument, nextFileName?: string, nextHandle?: FileHandle) {
+    const normalized = normalizeDocument(nextDoc);
+    setDoc(normalized);
+    setFileName(nextFileName);
+    setFileHandle(nextHandle);
+    setSelectedSectionId(normalized.settings.sectionOrder[0] ?? normalized.sections[0]?.id ?? "");
+    setContentView("profile");
+    setTab("content");
+    setStartupOpen(false);
+  }
+
+  function startNew(mode: StartMode) {
+    const nextDoc = mode === "blank" ? createBlankDocument() : createSampleDocument();
+    loadDocument(nextDoc, undefined, undefined);
+    setStatus(mode === "blank" ? "Started a blank CV JSON." : "Loaded the John Doe template CV.");
+  }
+
+  async function readFile(file: File, handle?: FileHandle) {
+    try {
+      const parsed = JSON.parse(await file.text()) as CVDocument;
+      loadDocument(parsed, file.name, handle);
+      setStatus(`Opened ${file.name}`);
+    } catch (error) {
+      setStatus(`Could not open JSON: ${error instanceof Error ? error.message : "Invalid file"}`);
     }
   }
 
+  async function openJson() {
+    const picker = window as BrowserFileWindow;
+    if (picker.showOpenFilePicker) {
+      try {
+        const [handle] = await picker.showOpenFilePicker({
+          types: [{ description: "CV JSON", accept: { "application/json": [".json"] } }],
+          multiple: false
+        });
+        if (!handle) return;
+        await readFile(await handle.getFile(), handle);
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setStatus(`Could not open JSON: ${error instanceof Error ? error.message : "Picker failed"}`);
+        return;
+      }
+    }
+    fileInputRef.current?.click();
+  }
+
   async function saveJson() {
-    const result = await api().saveJson({ data: doc, filePath });
-    if (result.filePath) setFilePath(result.filePath);
-    setStatus(result.filePath ? `Saved ${result.filePath}` : "Saved");
+    const content = jsonText(doc);
+    if (fileHandle && await writeHandle(fileHandle, content)) {
+      setStatus(`Saved ${fileHandle.name}`);
+      return;
+    }
+    await saveJsonAs();
   }
 
   async function saveJsonAs() {
-    const result = await api().saveJsonAs({ data: doc, filePath });
-    if (result.canceled) return;
-    if (result.filePath) setFilePath(result.filePath);
-    setStatus(`Saved ${result.filePath}`);
+    const content = jsonText(doc);
+    const picker = window as BrowserFileWindow;
+    if (picker.showSaveFilePicker) {
+      try {
+        const handle = await picker.showSaveFilePicker({
+          suggestedName: fileName ?? defaultFileName(doc, "json"),
+          types: [{ description: "CV JSON", accept: { "application/json": [".json"] } }]
+        });
+        await writeHandle(handle, content);
+        setFileHandle(handle);
+        setFileName(handle.name);
+        setStatus(`Saved ${handle.name}`);
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setStatus(`Could not save JSON: ${error instanceof Error ? error.message : "Picker failed"}`);
+        return;
+      }
+    }
+    const name = fileName ?? defaultFileName(doc, "json");
+    downloadText(name, content, "application/json");
+    setFileName(name);
+    setStatus(`Downloaded ${name}. Save it somewhere you can find later.`);
   }
 
   async function exportTex() {
-    const result = await api().exportTex({ tex: latex });
-    if (result.canceled) return;
-    setStatus(result.filePath ? `Exported LaTeX to ${result.filePath}` : "LaTeX export complete");
+    const content = latex;
+    const name = defaultFileName(doc, "tex");
+    const picker = window as BrowserFileWindow;
+    if (picker.showSaveFilePicker) {
+      try {
+        const handle = await picker.showSaveFilePicker({
+          suggestedName: name,
+          types: [{ description: "LaTeX", accept: { "application/x-tex": [".tex"], "text/plain": [".tex"] } }]
+        });
+        await writeHandle(handle, content);
+        setStatus(`Saved ${handle.name}`);
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setStatus(`Could not save LaTeX: ${error instanceof Error ? error.message : "Picker failed"}`);
+        return;
+      }
+    }
+    downloadText(name, content, "application/x-tex");
+    setStatus(`Downloaded ${name}`);
   }
 
-  async function exportPdf() {
-    const result = await api().exportPdf({ tex: latex });
-    if (result.canceled) return;
-    setStatus(result.ok ? `Exported PDF to ${result.filePath}` : `${result.message} LaTeX was saved to ${result.texPath}.`);
-  }
-
-  async function openDataFolder() {
-    await api().openDataFolder();
-    setStatus(appInfo?.dataPath ? `Opened data folder: ${appInfo.dataPath}` : "Opened data folder.");
-  }
-
-  async function checkUpdates() {
-    setStatus("Checking GitHub for updates...");
-    const result = await api().checkForUpdates();
-    setStatus(result.message ?? (result.available ? "Update available." : "Update check complete."));
+  function exportPdf() {
+    setTab("preview");
+    setStatus("Use the browser print dialog to save the CV as a PDF.");
+    window.setTimeout(() => window.print(), 160);
   }
 
   return (
     <div className={sidebarCollapsed ? "app-shell sidebar-collapsed" : "app-shell"}>
+      <input
+        ref={fileInputRef}
+        className="sr-only"
+        type="file"
+        accept="application/json,.json"
+        onChange={(event) => {
+          const file = event.currentTarget.files?.[0];
+          event.currentTarget.value = "";
+          if (file) void readFile(file);
+        }}
+      />
       <aside className="sidebar">
         <div className="brand">
           <FileText size={24} />
           <div>
             <h1>Academic CV Generator</h1>
-            <p>JSON to LaTeX desktop editor</p>
+            <p>GitHub Pages JSON editor</p>
           </div>
           <button
             className="collapse-toggle"
@@ -344,28 +423,24 @@ export default function App() {
         <header className="toolbar">
           <div className="path">
             <FileJson size={18} />
-            <span>{filePath ?? "Unsaved JSON"}</span>
+            <span>{fileName ?? "Unsaved JSON"}</span>
           </div>
           <div className="actions">
-            <button onClick={openJson}><FolderOpen size={16} /> Open</button>
+            <button onClick={openJson}><FolderOpen size={16} /> Upload</button>
             <button onClick={saveJson}><Save size={16} /> Save</button>
             <button onClick={saveJsonAs}>Save As</button>
             <button onClick={exportTex}><Download size={16} /> .tex</button>
-            <button className="primary" onClick={exportPdf}><Download size={16} /> PDF</button>
-            <button title="Open private app data folder" onClick={openDataFolder}><ShieldCheck size={16} /> Data</button>
-            <button title="Check GitHub Releases for updates" onClick={checkUpdates}><RefreshCw size={16} /> Updates</button>
+            <button className="primary" onClick={exportPdf}><Printer size={16} /> PDF</button>
           </div>
         </header>
 
         <div className="status-row">
           <div className="status">{status}</div>
-          {appInfo && (
-            <div className="app-meta" title={appInfo.defaultJsonPath}>
-              <span>v{appInfo.version}</span>
-              <span>{appInfo.repository.owner}/{appInfo.repository.repo}</span>
-              <span>Local-only JSON</span>
-            </div>
-          )}
+          <div className="app-meta">
+            <span>Static web app</span>
+            <span>Local files only</span>
+            <span>GitHub Pages</span>
+          </div>
         </div>
 
         {tab === "content" && (
@@ -406,6 +481,33 @@ export default function App() {
           </div>
         )}
       </main>
+      {startupOpen && (
+        <div className="startup-overlay" role="dialog" aria-modal="true" aria-labelledby="startup-title">
+          <section className="startup-panel">
+            <div className="startup-heading">
+              <FileJson size={26} />
+              <div>
+                <h2 id="startup-title">Start with a CV JSON</h2>
+                <p>Create a local JSON file, start from a filled template, or upload one you already have.</p>
+              </div>
+            </div>
+            <div className="startup-actions">
+              <button type="button" onClick={() => startNew("blank")}>
+                <FilePlus size={20} />
+                <span>Blank JSON</span>
+              </button>
+              <button type="button" className="primary" onClick={() => startNew("template")}>
+                <Sparkles size={20} />
+                <span>Template JSON</span>
+              </button>
+              <button type="button" onClick={openJson}>
+                <FileUp size={20} />
+                <span>Upload JSON</span>
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   );
 }

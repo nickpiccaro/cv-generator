@@ -1,101 +1,30 @@
 {
   "name": "cv-generator",
   "version": "0.1.1",
-  "description": "A local, JSON-backed academic medicine CV generator with LaTeX export.",
+  "description": "A GitHub Pages web app for editing JSON-backed academic CVs with LaTeX and print-to-PDF export.",
   "author": "Nicholas Piccaro",
   "homepage": "https://nickpiccaro.github.io/cv-generator/",
   "repository": {
     "type": "git",
     "url": "https://github.com/nickpiccaro/cv-generator.git"
   },
-  "main": "electron/main.cjs",
   "private": true,
   "scripts": {
-    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env ELECTRON_START_URL=http://localhost:5173 electron .\"",
-    "build": "node scripts/write-build-info.cjs && tsc && vite build",
-    "start": "electron .",
-    "dist": "npm run build && electron-builder",
-    "dist:mac": "npm run build && electron-builder --mac --x64 --arm64",
-    "dist:win": "npm run build && electron-builder --win --x64 --arm64"
-  },
-  "build": {
-    "appId": "com.nickpiccaro.cvgenerator",
-    "productName": "Academic CV Generator",
-    "artifactName": "Academic-CV-Generator-${version}-${os}-${arch}.${ext}",
-    "asar": true,
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "dist/**/*",
-      "electron/**/*",
-      "src/data/sample-cv.json",
-      "package.json"
-    ],
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "nickpiccaro",
-        "repo": "cv-generator",
-        "releaseType": "release"
-      }
-    ],
-    "mac": {
-      "category": "public.app-category.productivity",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ]
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": false
-    }
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "electron-updater": "^6.8.9"
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
-    "concurrently": "^9.2.1",
-    "cross-env": "^10.1.0",
-    "electron": "^42.5.0",
-    "electron-builder": "^26.15.3",
-    "lucide-react": "^0.562.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
     "typescript": "^5.9.3",
-    "vite": "^8.1.2",
-    "wait-on": "^9.0.3"
+    "vite": "^8.1.2"
   }
 }

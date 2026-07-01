@@ -1,113 +1,18 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' ws: http://localhost:*; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
     />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Academic CV Generator</title>
-    <meta
-      name="description"
-      content="A private desktop app for building academic medicine CVs from local JSON and exporting LaTeX or PDF."
-    />
-    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" crossorigin src="/cv-generator/assets/index-BtHA8Z8Z.js"></script>
+    <link rel="stylesheet" crossorigin href="/cv-generator/assets/index-BzSKwqcg.css">
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="./" aria-label="Academic CV Generator home">
-        <span class="brand-mark" aria-hidden="true">CV</span>
-        <span>Academic CV Generator</span>
-      </a>
-      <nav aria-label="Primary">
-        <a href="#downloads">Downloads</a>
-        <a href="#security">Security</a>
-        <a href="https://github.com/nickpiccaro/cv-generator" rel="noopener noreferrer">GitHub</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Private desktop CV editor</p>
-          <h1>Academic CV Generator</h1>
-          <p>
-            Build a structured academic medicine CV from local JSON, reorder sections,
-            and export clean LaTeX or PDF without sending personal data to a server.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#downloads">Download</a>
-            <a class="button" href="https://github.com/nickpiccaro/cv-generator" rel="noopener noreferrer">View source</a>
-          </div>
-        </div>
-        <figure class="product-shot">
-          <img src="./assets/app-preview.png" alt="Academic CV Generator desktop app preview" />
-        </figure>
-      </section>
-
-      <section id="downloads" class="section downloads" aria-labelledby="downloads-title">
-        <div class="section-heading">
-          <p class="eyebrow">Installers</p>
-          <h2 id="downloads-title">Download for your computer</h2>
-          <p id="release-status">Looking up the latest GitHub release...</p>
-        </div>
-        <div class="download-grid">
-          <article class="download-card">
-            <h3>macOS Apple Silicon</h3>
-            <p>For M1, M2, M3, and newer Macs.</p>
-            <a id="download-mac-arm64" class="button primary" href="https://github.com/nickpiccaro/cv-generator/releases/latest" rel="noopener noreferrer">Download DMG</a>
-          </article>
-          <article class="download-card">
-            <h3>macOS Intel</h3>
-            <p>For older Intel-based Macs.</p>
-            <a id="download-mac-x64" class="button primary" href="https://github.com/nickpiccaro/cv-generator/releases/latest" rel="noopener noreferrer">Download DMG</a>
-          </article>
-          <article class="download-card">
-            <h3>Windows x64</h3>
-            <p>For most Windows 10 and Windows 11 PCs.</p>
-            <a id="download-win-x64" class="button primary" href="https://github.com/nickpiccaro/cv-generator/releases/latest" rel="noopener noreferrer">Download EXE</a>
-          </article>
-          <article class="download-card">
-            <h3>Windows ARM64</h3>
-            <p>For ARM-based Windows devices.</p>
-            <a id="download-win-arm64" class="button primary" href="https://github.com/nickpiccaro/cv-generator/releases/latest" rel="noopener noreferrer">Download EXE</a>
-          </article>
-        </div>
-      </section>
-
-      <section id="security" class="section security" aria-labelledby="security-title">
-        <div class="section-heading">
-          <p class="eyebrow">Security model</p>
-          <h2 id="security-title">Designed for personal CV data</h2>
-        </div>
-        <div class="security-grid">
-          <article>
-            <h3>Local data folder</h3>
-            <p>CV JSON is stored in the standard per-user app data directory on macOS and Windows, not in a shared program folder.</p>
-          </article>
-          <article>
-            <h3>No CV upload</h3>
-            <p>The app does not use analytics or cloud storage. Update checks read public GitHub release metadata only.</p>
-          </article>
-          <article>
-            <h3>Hardened desktop runtime</h3>
-            <p>Electron runs with context isolation, no renderer Node access, a restrictive content security policy, and validated IPC calls.</p>
-          </article>
-          <article>
-            <h3>Release updates</h3>
-            <p>The packaged app checks GitHub Releases on startup and can defer update reminders for 30 days.</p>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>Academic CV Generator</span>
-      <a href="https://github.com/nickpiccaro/cv-generator/releases/latest" rel="noopener noreferrer">Latest release</a>
-    </footer>
-
-    <script src="./downloads.js" defer></script>
+    <div id="root"></div>
   </body>
 </html>
