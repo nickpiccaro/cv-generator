@@ -1,6 +1,6 @@
 # Academic CV Generator
 
-A private desktop CV generator for academic medicine. The app stores CV data as local JSON, lets you customize and reorder sections, and exports LaTeX or PDF.
+A private desktop CV generator for academics. The app stores CV data as local JSON, lets you customize and reorder sections, and exports LaTeX or PDF.
 
 ## Download
 
