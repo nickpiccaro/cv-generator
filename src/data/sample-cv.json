@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "profile": {
+    "name": "Nicholas Piccaro",
+    "credentials": "BS",
+    "title": "Medical Student",
+    "affiliation": "University of Chicago Pritzker School of Medicine",
+    "address": "",
+    "email": "npiccaro10@gmail.com",
+    "phone": "",
+    "location": "Aurora, CO",
+    "website": "https://www.nickpiccaro.com",
+    "linkedin": "https://linkedin.com/in/nicholas-piccaro-03a128182",
+    "github": "https://github.com/nickpiccaro",
+    "links": [
+      { "id": "linkedin", "label": "LinkedIn", "url": "https://linkedin.com/in/nicholas-piccaro-03a128182" },
+      { "id": "github", "label": "GitHub", "url": "https://github.com/nickpiccaro" },
+      { "id": "website", "label": "Website", "url": "https://www.nickpiccaro.com" }
+    ],
+    "ownerNames": ["Nicholas Piccaro", "Nicholas C. Piccaro", "N. Piccaro"]
+  },
+  "settings": {
+    "paperSize": "letter",
+    "marginInches": 0.75,
+    "sectionOrder": [
+      "education",
+      "postgraduate-training",
+      "work-experience",
+      "appointments",
+      "skills",
+      "certifications",
+      "volunteer-roles",
+      "volunteer-impact",
+      "memberships",
+      "licenses",
+      "honors",
+      "awards",
+      "publications",
+      "book-chapters",
+      "poster-presentations",
+      "podium-presentations"
+    ]
+  },
+  "sections": [
+    {
+      "id": "education",
+      "title": "Education",
+      "kind": "education",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "institution", "label": "Institution", "kind": "text" },
+        { "id": "degree", "label": "Degree or Program", "kind": "text" },
+        { "id": "field", "label": "Field", "kind": "text" },
+        { "id": "location", "label": "Location", "kind": "text" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" },
+        { "id": "gpa", "label": "GPA", "kind": "text" },
+        { "id": "details", "label": "Details", "kind": "bullets" }
+      ],
+      "items": [
+        {
+          "id": "edu-1",
+          "values": {
+            "institution": "Bryn Mawr College",
+            "degree": "Postbaccalaureate Premedical Program",
+            "field": "Premedical Sciences",
+            "dates": "2024-2025",
+            "location": "Bryn Mawr, PA",
+            "gpa": "4.0",
+            "details": ["Completed postbaccalaureate premedical coursework with a 4.0 GPA."]
+          }
+        },
+        {
+          "id": "edu-2",
+          "values": {
+            "institution": "Colorado State University",
+            "degree": "BS",
+            "field": "Data Science with Computer Science Concentration",
+            "dates": "2019-2022",
+            "location": "Fort Collins, Colorado",
+            "gpa": "3.8",
+            "details": ["Coursework focused on machine learning, statistical modeling, and software engineering."]
+          }
+        },
+        {
+          "id": "edu-3",
+          "values": {
+            "institution": "Lehigh University",
+            "degree": "Undergraduate Studies",
+            "field": "Computer Engineering",
+            "dates": "2018-2019",
+            "location": "Bethlehem, PA",
+            "gpa": "",
+            "details": ["Coursework included Calculus, Differential Equations, Linear Algebra, Physics, Circuits, and Engineering Mathematics."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "postgraduate-training",
+      "title": "Postgraduate Education and Training",
+      "kind": "education",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "institution", "label": "Institution", "kind": "text" },
+        { "id": "program", "label": "Program", "kind": "text" },
+        { "id": "specialty", "label": "Specialty", "kind": "text" },
+        { "id": "location", "label": "Location", "kind": "text" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" },
+        { "id": "gpa", "label": "GPA", "kind": "text" }
+      ],
+      "items": [
+        {
+          "id": "postgrad-1",
+          "values": {
+            "institution": "University of Colorado School of Medicine",
+            "program": "Orthopaedic Trauma Research Fellowship",
+            "specialty": "Clinical Research",
+            "location": "Aurora, CO",
+            "dates": "2025-2026",
+            "gpa": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "work-experience",
+      "title": "Work and Research Experience",
+      "kind": "experience",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "organization", "label": "Organization", "kind": "text" },
+        { "id": "location", "label": "Location", "kind": "text" },
+        { "id": "role", "label": "Role", "kind": "text" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" },
+        { "id": "summary", "label": "Summary", "kind": "textarea" },
+        { "id": "bullets", "label": "Bullets", "kind": "bullets" },
+        { "id": "tags", "label": "Skills or Tags", "kind": "tags" }
+      ],
+      "items": [
+        {
+          "id": "exp-1",
+          "values": {
+            "role": "Orthopedic Trauma Research Fellow",
+            "organization": "University of Colorado School of Medicine",
+            "dates": "July 2025-Present",
+            "location": "Aurora, CO",
+            "summary": "Manage multiple clinical trials within the Department of Orthopedics at Anschutz Medical Campus.",
+            "bullets": ["Conduct research on orthopedic trauma surgery with a focus on machine learning and AI applications in orthopedic trauma."],
+            "tags": ["Clinical Research", "Orthopedics", "Machine Learning", "Clinical Trials"]
+          }
+        },
+        {
+          "id": "exp-2",
+          "values": {
+            "role": "Medical Oncology Research Assistant",
+            "organization": "Dana-Farber Cancer Institute",
+            "dates": "January 2024-June 2025",
+            "location": "Boston, MA",
+            "summary": "Improved accessibility and usability of genomic data by applying conversational AI to extract key metadata values from ChIP-Seq datasets.",
+            "bullets": ["Extracted critical experiment data from tens of thousands of samples with missing information at a cost of $0.04 per 10,000 samples."],
+            "tags": ["Genomics", "Conversational AI", "ChIP-Seq", "Python"]
+          }
+        },
+        {
+          "id": "exp-3",
+          "values": {
+            "role": "Applied AI Full Stack Software Engineer",
+            "organization": "Deloitte",
+            "dates": "July 2022-June 2024",
+            "location": "Boston, MA",
+            "summary": "Built and enhanced features for Deloitte's conversational AI platform, Trueserve DNA, using AWS, Docker, and JavaScript frameworks.",
+            "bullets": ["Collaborated with users, developers, and AI/ML teams to integrate advanced analytics and improve user experience."],
+            "tags": ["AWS", "Docker", "JavaScript", "Conversational AI", "Machine Learning"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "appointments",
+      "title": "Academic and Professional Appointments",
+      "kind": "appointments",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "appointment", "label": "Appointment", "kind": "text" },
+        { "id": "affiliation", "label": "Affiliation", "kind": "text" },
+        { "id": "role", "label": "Role", "kind": "text" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" },
+        { "id": "description", "label": "Description", "kind": "textarea" }
+      ],
+      "items": [
+        {
+          "id": "apt-1",
+          "values": {
+            "appointment": "Incrediwear Ankle Trial",
+            "affiliation": "University of Colorado",
+            "role": "Clinical Trial Manager",
+            "dates": "July 2025-Present",
+            "description": "Manages enrollment and data collection for orthopedic clinical trials."
+          }
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "title": "Skills",
+      "kind": "skills",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "category", "label": "Category", "kind": "text" },
+        { "id": "items", "label": "Items", "kind": "tags" }
+      ],
+      "items": [
+        { "id": "skill-1", "values": { "category": "Languages", "items": ["Python", "TypeScript", "JavaScript", "Java", "C++", "R", "SQL", "HTML", "CSS"] } },
+        { "id": "skill-2", "values": { "category": "Frontend and Backend", "items": ["React", "Vue", "Node.js", "Express", "MongoDB"] } },
+        { "id": "skill-3", "values": { "category": "Machine Learning and AI", "items": ["Deep Learning", "Large Language Models", "Prompt Engineering", "TensorFlow", "Keras", "PyTorch"] } },
+        { "id": "skill-4", "values": { "category": "Research", "items": ["Clinical Trial Management", "Genomics", "ChIP-Seq", "Evidence Appraisal"] } },
+        { "id": "skill-5", "values": { "category": "Tools and Practices", "items": ["Git", "AWS", "Docker", "Agile Methodologies", "Microsoft Office"] } }
+      ]
+    },
+    {
+      "id": "certifications",
+      "title": "Certifications",
+      "kind": "certifications",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "name", "label": "Certification", "kind": "text" },
+        { "id": "issuer", "label": "Issuer", "kind": "text" },
+        { "id": "year", "label": "Year", "kind": "date" }
+      ],
+      "items": [
+        { "id": "cert-1", "values": { "name": "AI Full Stack Developer", "issuer": "Deloitte", "year": "2024" } },
+        { "id": "cert-2", "values": { "name": "Customer Analytics with Python", "issuer": "Udemy", "year": "2023" } },
+        { "id": "cert-3", "values": { "name": "Good Clinical Practice", "issuer": "CITI Program", "year": "2025" } },
+        { "id": "cert-4", "values": { "name": "Human Subjects Research", "issuer": "CITI Program", "year": "2025" } },
+        { "id": "cert-5", "values": { "name": "Basic Life Support", "issuer": "American Heart Association", "year": "2026" } },
+        { "id": "cert-6", "values": { "name": "Responsible Conduct of Research", "issuer": "CITI Program", "year": "2024" } },
+        { "id": "cert-7", "values": { "name": "AWS Certified Cloud Practitioner", "issuer": "Amazon Web Services", "year": "2022" } }
+      ]
+    },
+    {
+      "id": "volunteer-roles",
+      "title": "Volunteer Roles",
+      "kind": "volunteer",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "organization", "label": "Organization", "kind": "text" },
+        { "id": "location", "label": "Location", "kind": "text" },
+        { "id": "role", "label": "Role", "kind": "text" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" },
+        { "id": "impact", "label": "Impact", "kind": "textarea" },
+        { "id": "bullets", "label": "Bullets", "kind": "bullets" },
+        { "id": "hours", "label": "Hours", "kind": "number" }
+      ],
+      "items": [
+        {
+          "id": "vol-1",
+          "values": {
+            "role": "Cardiothoracic Intensive Care Unit Volunteer",
+            "organization": "UCHealth University of Colorado Hospital",
+            "dates": "July 2025-Present",
+            "location": "Aurora, CO",
+            "impact": "Volunteer in the Cardiothoracic ICU, supporting clinical staff and patients.",
+            "bullets": ["Round on unit needs and assist staff with patient transport and supply organization."],
+            "hours": ""
+          }
+        },
+        {
+          "id": "vol-2",
+          "values": {
+            "role": "Volunteer Tutor",
+            "organization": "Learn To Be",
+            "dates": "July 2025-Present",
+            "location": "Remote",
+            "impact": "Provide free one-on-one tutoring to underserved K-12 students.",
+            "bullets": ["Tutor students in algebra, biology, and college readiness skills."],
+            "hours": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "volunteer-impact",
+      "title": "Volunteer Impact",
+      "kind": "volunteer",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "area", "label": "Impact Area", "kind": "text" },
+        { "id": "organizations", "label": "Organizations", "kind": "tags" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" },
+        { "id": "summary", "label": "Summary", "kind": "textarea" },
+        { "id": "bullets", "label": "Outcomes", "kind": "bullets" },
+        { "id": "hours", "label": "Total Hours", "kind": "number" }
+      ],
+      "items": [
+        {
+          "id": "vol-impact-1",
+          "values": {
+            "area": "Community Health Education",
+            "organizations": ["UCHealth", "Learn To Be"],
+            "dates": "2025-Present",
+            "summary": "Support patient-facing and student-facing volunteer efforts across clinical and remote education settings.",
+            "bullets": ["Created approachable explanations of clinical workflows and science concepts for nontechnical audiences."],
+            "hours": "120"
+          }
+        }
+      ]
+    },
+    {
+      "id": "memberships",
+      "title": "Professional Society Memberships",
+      "kind": "memberships",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "organization", "label": "Organization", "kind": "text" },
+        { "id": "role", "label": "Role or Membership Type", "kind": "text" },
+        { "id": "dates", "label": "Dates", "kind": "dateRange" }
+      ],
+      "items": [
+        {
+          "id": "member-1",
+          "values": {
+            "organization": "American Medical Association",
+            "role": "Student Member",
+            "dates": "2026-Present"
+          }
+        },
+        {
+          "id": "member-2",
+          "values": {
+            "organization": "American Medical Student Association",
+            "role": "Member",
+            "dates": "2025-Present"
+          }
+        }
+      ]
+    },
+    {
+      "id": "licenses",
+      "title": "Medical Licensure",
+      "kind": "licenses",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "license", "label": "License", "kind": "text" },
+        { "id": "state", "label": "State", "kind": "text" },
+        { "id": "number", "label": "Number", "kind": "text" },
+        { "id": "status", "label": "Status", "kind": "text" },
+        { "id": "date", "label": "Date", "kind": "date" }
+      ],
+      "items": [
+        {
+          "id": "license-1",
+          "values": {
+            "license": "Physician Training License",
+            "state": "Illinois",
+            "number": "Pending",
+            "status": "Anticipated",
+            "date": "2026"
+          }
+        }
+      ]
+    },
+    {
+      "id": "honors",
+      "title": "Honors",
+      "kind": "awards",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "award", "label": "Honor", "kind": "text" },
+        { "id": "sponsor", "label": "Sponsor", "kind": "text" },
+        { "id": "date", "label": "Date", "kind": "date" },
+        { "id": "description", "label": "Description", "kind": "textarea" }
+      ],
+      "items": [
+        {
+          "id": "honor-1",
+          "values": {
+            "award": "Dean's List",
+            "sponsor": "Colorado State University",
+            "date": "2022",
+            "description": "Recognized for sustained academic performance in data science coursework."
+          }
+        }
+      ]
+    },
+    {
+      "id": "awards",
+      "title": "Awards",
+      "kind": "awards",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "award", "label": "Award", "kind": "text" },
+        { "id": "sponsor", "label": "Sponsor", "kind": "text" },
+        { "id": "date", "label": "Date", "kind": "date" },
+        { "id": "description", "label": "Description", "kind": "textarea" }
+      ],
+      "items": [
+        {
+          "id": "award-1",
+          "values": {
+            "award": "Undergraduate Research Excellence Award",
+            "sponsor": "College of Natural Sciences",
+            "date": "2022",
+            "description": "Awarded for an applied machine learning capstone project."
+          }
+        }
+      ]
+    },
+    {
+      "id": "publications",
+      "title": "Publications",
+      "kind": "publication",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "authors", "label": "Authors", "kind": "authors" },
+        { "id": "year", "label": "Year", "kind": "date" },
+        { "id": "title", "label": "Title", "kind": "text" },
+        { "id": "venue", "label": "Journal or Venue", "kind": "text" },
+        { "id": "details", "label": "Volume, Issue, Pages, Status", "kind": "text" },
+        { "id": "doi", "label": "DOI or URL", "kind": "url" }
+      ],
+      "items": [
+        {
+          "id": "pub-1",
+          "values": {
+            "authors": ["Nicholas C. Piccaro, BS", "Jane Q. Collaborator, MD", "Alex R. Mentor, PhD"],
+            "year": "2026",
+            "title": "Machine Learning Approaches to Orthopedic Trauma Risk Stratification",
+            "venue": "Journal of Orthopaedic Research",
+            "details": "In preparation",
+            "doi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "book-chapters",
+      "title": "Book Chapters",
+      "kind": "publication",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "authors", "label": "Authors", "kind": "authors" },
+        { "id": "year", "label": "Year", "kind": "date" },
+        { "id": "title", "label": "Chapter Title", "kind": "text" },
+        { "id": "book", "label": "Book", "kind": "text" },
+        { "id": "publisher", "label": "Publisher", "kind": "text" }
+      ],
+      "items": [
+        {
+          "id": "chapter-1",
+          "values": {
+            "authors": ["Nicholas C. Piccaro, BS", "Alex R. Mentor, PhD"],
+            "year": "2026",
+            "title": "Clinical Data Pipelines for Musculoskeletal Research",
+            "book": "Digital Methods in Academic Medicine",
+            "publisher": "Mock Academic Press"
+          }
+        }
+      ]
+    },
+    {
+      "id": "poster-presentations",
+      "title": "Poster Presentations",
+      "kind": "presentation",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "authors", "label": "Authors", "kind": "authors" },
+        { "id": "year", "label": "Year", "kind": "date" },
+        { "id": "title", "label": "Title", "kind": "text" },
+        { "id": "meeting", "label": "Meeting", "kind": "text" },
+        { "id": "location", "label": "Location", "kind": "text" },
+        { "id": "type", "label": "Type", "kind": "select", "options": ["Poster", "Oral", "Podium"] }
+      ],
+      "items": [
+        {
+          "id": "poster-1",
+          "values": {
+            "authors": ["Nicholas C. Piccaro, BS", "Fahim A. Choudhury, BA", "Mohamed E. Awad, MD, MBA", "Jason W. Stoneback, MD", "Melissa Gorman, MD", "Nicholas A. Alfonso, MD"],
+            "year": "2025",
+            "title": "Increased Rates of Thromboembolism in Geriatric Patients with Femur Fractures Post-COVID-19 Pandemic: A Propensity-Matched Analysis",
+            "meeting": "7th Annual D'Ambrosia Orthopedic Symposium",
+            "location": "",
+            "type": "Poster"
+          }
+        }
+      ]
+    },
+    {
+      "id": "podium-presentations",
+      "title": "Podium Presentations",
+      "kind": "presentation",
+      "hiddenWhenEmpty": true,
+      "fields": [
+        { "id": "authors", "label": "Authors", "kind": "authors" },
+        { "id": "year", "label": "Year", "kind": "date" },
+        { "id": "title", "label": "Title", "kind": "text" },
+        { "id": "meeting", "label": "Meeting", "kind": "text" },
+        { "id": "location", "label": "Location", "kind": "text" }
+      ],
+      "items": [
+        {
+          "id": "podium-1",
+          "values": {
+            "authors": ["Nicholas C. Piccaro, BS", "Fahim A. Choudhury, BA", "Nicholas A. Alfonso, MD"],
+            "year": "2026",
+            "title": "AI-Assisted Trial Operations in Orthopedic Trauma Research",
+            "meeting": "Rocky Mountain Orthopaedic Research Forum",
+            "location": "Denver, CO"
+          }
+        }
+      ]
+    }
+  ]
+}
